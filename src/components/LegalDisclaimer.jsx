@@ -66,7 +66,7 @@ const LegalDisclaimer = ({ onAccept }) => {
             I Understand & Accept
           </button>
           <p className="disclaimer-note">
-            You can review our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms-of-service">Terms of Service</a> anytime.
+            You can review our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms of Service</a> anytime.
           </p>
         </div>
       </div>

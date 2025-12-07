@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="nav-content">
           <Link to="/" className="logo">
             <Scale size={32} />
-            <span className="logo-text">Lawyerbhai</span>
+            <span className="logo-text">LawyerBhai</span>
           </Link>
 
           <div className="nav-links">

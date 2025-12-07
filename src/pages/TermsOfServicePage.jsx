@@ -74,7 +74,7 @@ const TermsOfServicePage = () => {
 
         <section>
           <h2>10. Contact</h2>
-          <p>For questions about these terms, contact: legal@lawyerbhai.com</p>
+          <p>For questions about these terms, contact: legal@LawyerBhai.com</p>
         </section>
       </div>
     </div>

@@ -14,6 +14,7 @@ import {
   FileText
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import ADVOCATES_DATA from '../data/advocatesData';
 import './AdvocateDetailPage.css';
 
 // Dummy data - matches AdvocatesPage data
@@ -100,10 +101,19 @@ const AdvocateDetailPage = () => {
   const [selectedSlot, setSelectedSlot] = useState('');
 
   useEffect(() => {
-    // Fetch advocate details (using dummy data for now)
-    const advocateData = DUMMY_ADVOCATES[id];
+    // Fetch advocate details from advocates data
+    const advocateData = ADVOCATES_DATA.find(adv => adv.id === id);
     if (advocateData) {
-      setAdvocate(advocateData);
+      // Add additional details if not present
+      const fullAdvocateData = {
+        ...advocateData,
+        about: advocateData.about || `Experienced ${advocateData.category} advocate with ${advocateData.experience} years of practice.`,
+        specializations: advocateData.specializations || [advocateData.category, 'Legal Consultation', 'Court Representation'],
+        phone: advocateData.phone || '+91 98765 43210',
+        email: advocateData.email || `${advocateData.name.toLowerCase().replace(/\s+/g, '.')}@lawfirm.com`,
+        reviews: advocateData.reviews || []
+      };
+      setAdvocate(fullAdvocateData);
     } else {
       toast.error('Advocate not found');
       navigate('/advocates');

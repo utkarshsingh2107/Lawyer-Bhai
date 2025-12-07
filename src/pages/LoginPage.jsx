@@ -56,7 +56,7 @@ const LoginPage = () => {
           <div className="auth-header">
             <div className="auth-logo">
               <Scale size={32} />
-              <h2>Lawyerbhai</h2>
+              <h2>LawyerBhai</h2>
             </div>
             <h1>Welcome Back</h1>
             <p>Login to access your account</p>

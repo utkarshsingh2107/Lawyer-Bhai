@@ -76,7 +76,7 @@ class ErrorBoundary extends React.Component {
 
             <p className="error-help">
               If this problem persists, please contact support at{' '}
-              <a href="mailto:support@lawyerbhai.com">support@lawyerbhai.com</a>
+              <a href="mailto:support@LawyerBhai.com">support@LawyerBhai.com</a>
             </p>
           </div>
         </div>

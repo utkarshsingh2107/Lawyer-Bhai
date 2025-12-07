@@ -14,7 +14,8 @@ const AIAssistantPage = () => {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { selectedCity, updateCity } = useLocation();
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const { selectedCity } = useLocation();
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
 
@@ -125,10 +126,23 @@ const AIAssistantPage = () => {
     // TODO: Send feedback to backend
   };
 
+  const handleAcceptDisclaimer = () => {
+    setShowDisclaimer(false);
+    localStorage.setItem('lawyerbhai_disclaimer_accepted', 'true');
+  };
+
+  useEffect(() => {
+    // Check if disclaimer was already accepted
+    const disclaimerAccepted = localStorage.getItem('lawyerbhai_disclaimer_accepted');
+    if (disclaimerAccepted === 'true') {
+      setShowDisclaimer(false);
+    }
+  }, []);
+
   return (
     <div className="ai-assistant-page">
       <div className="container">
-        <LegalDisclaimer />
+        {showDisclaimer && <LegalDisclaimer onAccept={handleAcceptDisclaimer} />}
         <div className="ai-container">
           {/* Header */}
           <div className="ai-header">

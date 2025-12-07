@@ -63,7 +63,7 @@ const PrivacyPolicyPage = () => {
 
         <section>
           <h2>7. Contact Us</h2>
-          <p>For privacy-related questions, contact us at: privacy@lawyerbhai.com</p>
+          <p>For privacy-related questions, contact us at: privacy@LawyerBhai.com</p>
         </section>
       </div>
     </div>

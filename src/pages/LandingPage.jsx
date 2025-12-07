@@ -8,7 +8,7 @@ const LandingPage = () => {
       <section className="hero">
         <div className="container">
           <div className="hero-content">
-            <h1 className="hero-title">Find the Right Advocate Near You</h1>
+            <h1 className="hero-title">Find The Right Advocate Near You</h1>
             <p className="hero-subtitle">
               Search local advocates based on your location, compare ratings, experience, 
               and book consultation slots instantly.

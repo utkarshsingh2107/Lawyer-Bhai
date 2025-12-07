@@ -68,7 +68,7 @@ const SignupPage = () => {
           <div className="auth-header">
             <div className="auth-logo">
               <Scale size={32} />
-              <h2>Lawyerbhai</h2>
+              <h2>LawyerBhai</h2>
             </div>
             <h1>Create Account</h1>
             <p>Sign up to get started</p>

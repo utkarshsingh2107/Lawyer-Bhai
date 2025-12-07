@@ -10,7 +10,7 @@ const Footer = () => {
           <div className="footer-brand">
             <div className="logo">
               <Scale size={32} />
-              <span className="logo-text">Lawyerbhai</span>
+              <span className="logo-text">LawyerBhai</span>
             </div>
             <p>Connecting you with the right legal expertise</p>
           </div>
@@ -32,7 +32,7 @@ const Footer = () => {
             
             <div className="footer-column">
               <h4>Contact</h4>
-              <a href="mailto:support@lawyerbhai.com">Support</a>
+              <a href="mailto:support@LawyerBhai.com">Support</a>
               <a href="#">About Us</a>
               <a href="#">Careers</a>
             </div>
@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; 2024 Lawyerbhai. All rights reserved. | Prototype Demo</p>
+          <p>&copy; 2024 LawyerBhai. All rights reserved. | Prototype Demo</p>
         </div>
       </div>
     </footer>

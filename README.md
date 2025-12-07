@@ -1,307 +1,274 @@
-# 🏛️ LawyerBhai - Legal Tech Platform
+# LawyerBhai - Legal Tech Platform
 
-## 🎯 Overview
-LawyerBhai is India's first **location-first** legal-tech platform that connects users with local advocates using **AI-powered recommendations**. Built with React 18, Firebase, and Google Gemini AI.
+A location-based legal-tech platform connecting users with advocates and providing AI-powered legal consultation.
 
-## 🌟 Core Concept: Location-First Approach
-The platform is built around the principle that **location matters** in legal services:
-- Users select their city first
-- All advocate recommendations are filtered by location
-- AI assistant provides location-matched suggestions
-- Booking system auto-fills user's city
-- Advocates are shown with their city prominently displayed
+## 🚀 Quick Start
 
-## ✨ Features
+### Prerequisites
+- Node.js v18+ (currently using v24.11.1)
+- npm v9+ (currently using 11.6.2)
+- Git 2.x+ (currently using 2.52.0)
 
-### 1. **Landing Page** (`index.html`)
-- Hero section: "Find the Right Advocate Near You"
-- Emphasis on location-based search
-- How It Works (3-step process)
-- Key Features showcase (Location-Based Search highlighted)
-- Why Choose Us section
-- Call-to-action: "Find Nearby Advocates"
-- Responsive navigation
+### Installation
 
-### 2. **Location Input Page** (`location.html`) - **NEW & CRITICAL**
-- Dedicated page for location selection
-- City dropdown with 12 major Indian cities
-- "Use My Current Location" button (simulated)
-- Popular city quick-select chips
-- Benefits section explaining why location matters:
-  - Local Court Expertise
-  - Easy Accessibility
-  - Faster Resolution
-  - Better Pricing
-- Stores selected city in localStorage
-- Redirects to advocates page after selection
+```bash
+# Install dependencies
+npm install
 
-### 3. **Nearby Advocates Page** (`advocates.html`)
-- **Location-aware**: Shows advocates only from selected city
-- Page header displays: "Advocates Near You in [City]"
-- Location badge with "Change" button
-- 8+ verified advocate profiles per city
-- Advanced filtering system:
-  - Category (Criminal, Family, Divorce, Property, Corporate, Civil)
-  - Court Level (District, High Court, Supreme Court)
-  - Experience (0-5, 5-10, 10+ years)
-  - Rating (4+, 4.5+ stars)
-- Advocate cards showing:
-  - Photo placeholder
-  - Name and city (📍 prominently displayed)
-  - Category and specialization
-  - Court level and experience
-  - Cases won/lost statistics
-  - Rating and reviews
-  - Consultation fees
-  - Book Slot button
-- Sorting options
-- Real-time filter updates
-- Redirects to location page if no city selected
+# Start development server
+npm run dev
+```
 
-### 4. **AI Legal Assistant** (`ai-assistant.html`)
-- **Location-aware**: Shows user's selected city
-- Chat-like interface
-- User describes legal problem in plain language
-- AI analyzes and provides:
-  - Case type classification
-  - Urgency level
-  - Complexity assessment
-  - Recommended court level
-  - **Top 3 matching advocates from user's city**
-- Each recommendation shows:
-  - Name and city (📍 displayed)
-  - Experience, court level, rating
-  - Cases handled and fees
-  - Book Slot button
-- Quick example buttons for common cases
-- Smooth typing indicator animation
-- Direct booking from AI recommendations
-- Prompts for location if not set
+Server will be available at: **http://localhost:3001**
 
-### 5. **Booking Flow** (`booking.html`)
-- Advocate summary sidebar with:
-  - Name and city (📍 displayed)
-  - Category, court level, rating
-  - Experience and cases handled
-  - Consultation fee
-- Comprehensive booking form:
-  - Personal information (name, email, phone)
-  - **City auto-filled from advocate's location** (read-only)
-  - Date selection with calendar (minimum: today)
-  - Time slot selection (8 available slots, some randomly disabled)
-  - Optional case description
-- Visual time slot availability
-- Success confirmation modal with all booking details
-- Booking summary includes advocate's city
-- Demo disclaimer clearly visible
+Or use the batch file:
+```bash
+start-server.bat
+```
 
-## 🎨 Design System
-
-### Colors
-- Primary Blue: `#2563EB`
-- Dark Blue: `#1e40af`
-- Light Blue: `#dbeafe`
-- Text Dark: `#1f2937`
-- Text Gray: `#6b7280`
-- Background Light: `#f9fafb`
-- White: `#ffffff`
-
-### Typography
-- Font Family: Inter (Google Fonts)
-- Weights: 300, 400, 500, 600, 700
-
-### UI Elements
-- Rounded corners (8px, 12px, 16px)
-- Soft shadows for depth
-- Smooth transitions (0.3s)
-- Hover effects on interactive elements
-- Responsive grid layouts
-
-## 📁 File Structure
+## 📁 Project Structure
 
 ```
 lawyerbhai/
-├── index.html              # Landing page
-├── location.html           # Location selection page (NEW)
-├── location.css            # Location page styles (NEW)
-├── location.js             # Location page logic (NEW)
-├── advocates.html          # Location-based advocate listing
-├── advocates.css           # Advocates page styles
-├── advocates.js            # Location-aware advocates logic
-├── ai-assistant.html       # AI assistant page
-├── ai-assistant.css        # AI assistant styles
-├── ai-assistant.js         # Location-aware AI logic
-├── booking.html            # Booking flow page
-├── booking.css             # Booking page styles
-├── booking.js              # Booking page logic
-├── styles.css              # Global styles
-└── README.md               # This file
+├── src/
+│   ├── components/          # Reusable UI components
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── ErrorBoundary.jsx
+│   │   ├── CookieConsent.jsx
+│   │   ├── OfflineBanner.jsx
+│   │   ├── LegalDisclaimer.jsx
+│   │   ├── AdvocateSearch.jsx
+│   │   ├── LoadingSkeleton.jsx
+│   │   ├── EmptyState.jsx
+│   │   └── AIFeedback.jsx
+│   ├── pages/               # Page components
+│   │   ├── LandingPage.jsx
+│   │   ├── LocationPage.jsx
+│   │   ├── AdvocatesPage.jsx
+│   │   ├── AdvocateDetailPage.jsx
+│   │   ├── AIAssistantPage.jsx
+│   │   ├── BookingPage.jsx
+│   │   ├── DashboardPage.jsx
+│   │   ├── LoginPage.jsx
+│   │   ├── SignupPage.jsx
+│   │   ├── NotFoundPage.jsx
+│   │   ├── PrivacyPolicyPage.jsx
+│   │   └── TermsOfServicePage.jsx
+│   ├── context/             # React Context providers
+│   │   ├── AuthContext.jsx
+│   │   └── LocationContext.jsx
+│   ├── hooks/               # Custom React hooks
+│   │   └── useOnlineStatus.js
+│   ├── utils/               # Utility functions
+│   │   ├── sanitize.js
+│   │   ├── validation.js
+│   │   ├── contentSafety.js
+│   │   └── rateLimit.js
+│   ├── services/            # API services
+│   │   ├── advocateService.js
+│   │   └── bookingService.js
+│   ├── config/              # Configuration
+│   │   └── gemini.js
+│   ├── theme/               # Vintage theme (optional)
+│   │   ├── retro-legal-theme.css
+│   │   ├── vintage-stamps.jsx
+│   │   └── vintage-animations.js
+│   ├── App.jsx              # Main app component
+│   ├── main.jsx             # Entry point
+│   └── index.css            # Global styles
+├── .env                     # Environment variables
+├── .gitignore
+├── package.json
+├── vite.config.js
+└── index.html
 ```
 
-## 🚀 How to Use
+## 🎯 Features
 
-1. **Open `index.html`** in a web browser
-2. **Complete User Journey:**
-   - Click "Find Nearby Advocates" on landing page
-   - **Select your city** from dropdown or use quick-select chips
-   - Click "Continue to Find Advocates"
-   - Browse advocates filtered by your city
-   - Use filters to narrow down by category, court, experience, rating
-   - Click "Book Slot" on any advocate card
-   - Fill out the booking form (city auto-filled)
-   - Select date and time slot
-   - Confirm booking
+### Core Features
+- **Location-First Approach**: Users select city before browsing advocates
+- **Advocate Discovery**: Search, filter, and sort lawyers by category, court level, rating
+- **AI Legal Assistant**: Gemini AI-powered legal consultation in Hinglish
+- **User Authentication**: Login/signup with protected routes
+- **Booking System**: Schedule consultations with advocates
+- **Responsive Design**: Mobile, tablet, and desktop optimized
 
-3. **Alternative: AI Assistant Flow:**
-   - Click "Try AI Assistant" on landing page
-   - If no location set, you'll be prompted to select one
-   - Describe your legal problem
-   - AI recommends advocates from your city
-   - Click "Book Slot" on recommended advocates
+### Security & Compliance
+- Input sanitization
+- Content safety checks
+- Rate limiting (5 requests/minute for AI)
+- Cookie consent banner (GDPR)
+- Privacy policy & Terms of service
+- Legal disclaimers
 
-## 💡 Key Interactions
+### UX Enhancements
+- Loading skeletons
+- Empty states
+- Error boundaries
+- Offline detection
+- Toast notifications
+- AI feedback system
 
-### Landing Page
-- Navigation links to all sections
-- CTA buttons lead to location selection
-- Smooth scrolling and hover effects
+## 🔧 Configuration
 
-### Location Page (NEW)
-- Select city from dropdown (12 cities available)
-- Click popular city chips for quick selection
-- "Use My Current Location" simulates GPS detection
-- Continue button enabled only after city selection
-- City stored in localStorage for session persistence
+### Environment Variables
 
-### Advocates Page
-- **Location-aware**: Only shows advocates from selected city
-- Location badge displays current city with "Change" option
-- Real-time filtering without page reload
-- Hover effects on advocate cards
-- Each card prominently displays advocate's city
-- Click "Book Slot" to proceed to booking
-- Redirects to location page if no city selected
+Create a `.env` file in the root directory:
 
-### AI Assistant
-- Shows location badge if city is selected
-- Prompts for location if not set
-- Type or use quick examples
-- AI analyzes case and shows location-matched results
-- Recommendations clearly show advocate's city
-- Click "Book Slot" on recommended advocates
+```env
+# Gemini AI (Required for AI Assistant)
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
 
-### Booking Page
-- Advocate summary shows city
-- City field auto-filled and read-only
-- Select available time slots (some randomly disabled)
-- Fill form and submit
-- Success modal shows booking confirmation with location
-- Demo disclaimer clearly visible
+# Firebase (Optional - for authentication)
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+VITE_FIREBASE_APP_ID=1:123456789:web:abcdef
+```
 
-## 🎭 Dummy Data
+Get Gemini API key: https://makersuite.google.com/app/apikey
 
-### Location-Based Advocates Database
-- **5 major cities with unique advocate data:**
-  - Delhi (8 advocates)
-  - Mumbai (8 advocates)
-  - Lucknow (8 advocates)
-  - Jaipur (8 advocates)
-  - Bangalore (6 advocates)
-- **7 additional cities** with generated data (Kolkata, Chennai, Hyderabad, Pune, Ahmedabad, Chandigarh, Patna)
-- Each advocate has:
-  - Unique ID, name, and city
-  - Category (Criminal, Family, Divorce, Property, Corporate, Civil)
-  - Court level (District, High Court, Supreme Court)
-  - Experience (6-18 years)
-  - Cases won/lost statistics
-  - Rating (4.5-4.9 stars)
-  - Reviews count
-  - Consultation fees (₹2,000-₹8,000)
-  - Specialization
-  - Photo placeholder
+## 📱 Routes
 
-### AI Logic
-- Keyword-based case type detection
-- Urgency and complexity analysis
-- **Location-aware advocate recommendations**
-- Filters advocates by user's selected city
-- Returns top 3 matches from local advocates
+| Path | Component | Description |
+|------|-----------|-------------|
+| `/` | LandingPage | Homepage with hero section |
+| `/location` | LocationPage | City selection |
+| `/advocates` | AdvocatesPage | Browse advocates with filters |
+| `/advocate/:id` | AdvocateDetailPage | Advocate profile |
+| `/ai-assistant` | AIAssistantPage | AI legal consultation |
+| `/login` | LoginPage | User login |
+| `/signup` | SignupPage | User registration |
+| `/booking/:id` | BookingPage | Book consultation (protected) |
+| `/dashboard` | DashboardPage | User dashboard (protected) |
+| `/privacy` | PrivacyPolicyPage | Privacy policy |
+| `/terms` | TermsOfServicePage | Terms of service |
+| `*` | NotFoundPage | 404 page |
 
-## 📱 Responsive Design
-- Mobile-friendly layouts
-- Breakpoints at 768px and 640px
-- Collapsible navigation for mobile
-- Stacked layouts on smaller screens
+## 🎨 Styling
 
-## 🎯 Ideathon Pitch Points
+### Current Theme
+- Plain CSS with component-specific stylesheets
+- Modern blue color scheme (#2563EB primary)
+- Responsive grid layouts
+- Smooth animations
 
-1. **Problem Solved**: Difficulty finding the right lawyer **near your location** for specific legal issues
-2. **Location-First Innovation**: First legal-tech platform prioritizing geographical proximity
-3. **Why Location Matters**:
-   - Local court expertise and familiarity
-   - Easy in-person consultations
-   - Faster case resolution
-   - Better understanding of local legal landscape
-   - Competitive local pricing
-4. **AI Innovation**: Smart case analysis with location-matched advocate recommendations
-5. **Transparency**: Clear fees, ratings, track records, and location
-6. **User Experience**: Simple 4-step process: Select Location → Browse → Book → Confirm
-7. **Trust Factors**: Verified advocates, real reviews, court-level filtering, local presence
-8. **Scalability**: Can expand to all cities, courts, and legal categories across India
-9. **Market Differentiation**: Unlike generic platforms, we connect users with advocates they can actually meet
+### Vintage Theme (Optional)
+A retro-vintage legal theme is available. See `VINTAGE_THEME_GUIDE.md` for implementation.
 
-## ⚠️ Prototype Notes
+## 🛠️ Development
 
-- This is a **demo prototype** for presentation purposes
-- No actual bookings are made
-- All advocate data is dummy/fictional
-- Location detection is simulated (no real GPS)
-- AI analysis uses simple keyword matching (not real ML)
-- No backend or database integration
-- All data stored in localStorage temporarily
-- City selection persists during browser session
-- Advocate data is pre-populated for 12 major Indian cities
+### Available Scripts
 
-## 🔮 Future Enhancements
+```bash
+# Start development server
+npm run dev
 
-- **Real GPS-based location detection**
-- **Distance calculation and "Near Me" radius search**
-- **Google Maps integration** showing advocate offices
-- Real advocate verification system with bar council API
-- Payment gateway integration
-- Video consultation feature
-- Document upload and management
-- Case tracking dashboard
-- Real AI/ML model for case analysis
-- Multi-language support (Hindi, regional languages)
-- Mobile app versions (iOS & Android)
-- **Expand to 500+ cities across India**
-- **Tier 2 and Tier 3 city coverage**
-- Reviews and ratings from verified clients
-- In-app messaging with advocates
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Lint code
+npm run lint
+```
+
+### Tech Stack
+- **Framework**: React 18
+- **Build Tool**: Vite 5
+- **Routing**: React Router v6
+- **Styling**: Plain CSS
+- **Icons**: Lucide React
+- **Notifications**: React Hot Toast
+- **AI**: Google Generative AI (Gemini)
+- **Date Handling**: date-fns
+
+## 🐛 Troubleshooting
+
+### Server won't start
+```bash
+# Clear Vite cache
+Remove-Item -Path "node_modules\.vite" -Recurse -Force
+
+# Reinstall dependencies
+npm install
+
+# Start server
+npm run dev
+```
+
+### Blank page in browser
+1. Hard refresh: `Ctrl + Shift + R`
+2. Check browser console (F12) for errors
+3. Verify server is running on correct port
+4. Clear browser cache
+
+### PATH issues (Node.js/Git not recognized)
+Run the fix script:
+```bash
+.\fix-all-paths.ps1
+```
+
+Then restart your terminal/IDE.
+
+## 📊 Current Status
+
+✅ All systems operational
+✅ Development server running
+✅ No compilation errors
+✅ All features implemented
+✅ Production-ready frontend
+
+## 🚀 Deployment
+
+### Build for Production
+```bash
+npm run build
+```
+
+Output will be in `dist/` folder.
+
+### Deploy to Vercel/Netlify
+1. Connect your Git repository
+2. Set environment variables (VITE_GEMINI_API_KEY, etc.)
+3. Build command: `npm run build`
+4. Output directory: `dist`
+5. Deploy automatically on push
+
+## 📚 Documentation
+
+- **SYSTEM_STATUS.md** - Current system status and fixes
+- **PRODUCTION_READINESS_REPORT.md** - QA evaluation
+- **VINTAGE_THEME_GUIDE.md** - Retro theme implementation
+
+## 🤝 Contributing
+
+This is a prototype/demo project. For production use:
+1. Move API keys to backend server
+2. Implement real Firebase authentication
+3. Add database persistence
+4. Implement payment gateway
+5. Add email notifications
+6. Write comprehensive tests
 
 ## 📄 License
 
-This is a prototype project for educational/ideathon purposes.
+Private project - All rights reserved
 
-## 🎬 Demo Flow for Ideathon Presentation
+## 🎯 Next Steps
 
-1. **Start**: Open landing page, highlight location-first messaging
-2. **Click**: "Find Nearby Advocates"
-3. **Select**: Choose "Delhi" from dropdown
-4. **Show**: Advocates page filtered to Delhi only
-5. **Demonstrate**: Filters working in real-time
-6. **Change**: Click "Change" location, select "Mumbai"
-7. **Show**: Different advocates appear (Mumbai-based)
-8. **Navigate**: Go to AI Assistant
-9. **Type**: "I want to file for divorce"
-10. **Show**: AI recommends 3 advocates from Mumbai
-11. **Click**: "Book Slot" on any advocate
-12. **Show**: City auto-filled in booking form
-13. **Complete**: Fill form, select slot, confirm
-14. **Success**: Show confirmation modal with all details
+1. ✅ Environment setup complete
+2. ✅ Development server running
+3. 🔧 Configure Firebase (optional)
+4. 🎨 Apply vintage theme (optional)
+5. 🚀 Deploy to production
 
 ---
 
-**Built for Lawyerbhai Ideathon Pitch**
-*Connecting You with Local Legal Expertise* ⚖️📍
+**Server**: http://localhost:3001
+**Status**: ✅ Ready for Development
+**Last Updated**: December 8, 2024
