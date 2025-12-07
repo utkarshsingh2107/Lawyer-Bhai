@@ -1,0 +1,377 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from '../context/LocationContext';
+import { Scale, MapPin, Star, Briefcase, Award, IndianRupee } from 'lucide-react';
+import AdvocateSearch from '../components/AdvocateSearch';
+import LoadingSkeleton from '../components/LoadingSkeleton';
+import EmptyState from '../components/EmptyState';
+import './AdvocatesPage.css';
+
+// Dummy data - will be replaced with Firebase data
+const DUMMY_ADVOCATES = [
+  {
+    id: '1',
+    name: 'Adv. Rajesh Kumar',
+    city: 'Delhi',
+    category: 'Criminal Law',
+    court: 'High Court',
+    experience: 15,
+    rating: 4.8,
+    casesHandled: 250,
+    casesWon: 210,
+    fees: 5000,
+    image: 'https://ui-avatars.com/api/?name=Rajesh+Kumar&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '2',
+    name: 'Adv. Priya Sharma',
+    city: 'Delhi',
+    category: 'Family Law',
+    court: 'District Court',
+    experience: 8,
+    rating: 4.6,
+    casesHandled: 180,
+    casesWon: 155,
+    fees: 3000,
+    image: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '3',
+    name: 'Adv. Amit Verma',
+    city: 'Mumbai',
+    category: 'Corporate Law',
+    court: 'High Court',
+    experience: 12,
+    rating: 4.9,
+    casesHandled: 300,
+    casesWon: 275,
+    fees: 8000,
+    image: 'https://ui-avatars.com/api/?name=Amit+Verma&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '4',
+    name: 'Adv. Sneha Patel',
+    city: 'Mumbai',
+    category: 'Property Law',
+    court: 'District Court',
+    experience: 10,
+    rating: 4.7,
+    casesHandled: 220,
+    casesWon: 190,
+    fees: 4000,
+    image: 'https://ui-avatars.com/api/?name=Sneha+Patel&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '5',
+    name: 'Adv. Vikram Singh',
+    city: 'Bangalore',
+    category: 'Criminal Law',
+    court: 'Supreme Court',
+    experience: 20,
+    rating: 4.9,
+    casesHandled: 400,
+    casesWon: 360,
+    fees: 12000,
+    image: 'https://ui-avatars.com/api/?name=Vikram+Singh&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '6',
+    name: 'Adv. Meera Reddy',
+    city: 'Bangalore',
+    category: 'Divorce Law',
+    court: 'High Court',
+    experience: 9,
+    rating: 4.8,
+    casesHandled: 160,
+    casesWon: 140,
+    fees: 4500,
+    image: 'https://ui-avatars.com/api/?name=Meera+Reddy&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '7',
+    name: 'Adv. Arjun Mehta',
+    city: 'Chennai',
+    category: 'Corporate Law',
+    court: 'High Court',
+    experience: 14,
+    rating: 4.7,
+    casesHandled: 280,
+    casesWon: 245,
+    fees: 7000,
+    image: 'https://ui-avatars.com/api/?name=Arjun+Mehta&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '8',
+    name: 'Adv. Kavita Iyer',
+    city: 'Chennai',
+    category: 'Family Law',
+    court: 'District Court',
+    experience: 7,
+    rating: 4.5,
+    casesHandled: 140,
+    casesWon: 115,
+    fees: 3500,
+    image: 'https://ui-avatars.com/api/?name=Kavita+Iyer&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '9',
+    name: 'Adv. Rahul Joshi',
+    city: 'Pune',
+    category: 'Property Law',
+    court: 'High Court',
+    experience: 11,
+    rating: 4.6,
+    casesHandled: 200,
+    casesWon: 170,
+    fees: 5500,
+    image: 'https://ui-avatars.com/api/?name=Rahul+Joshi&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '10',
+    name: 'Adv. Anjali Desai',
+    city: 'Pune',
+    category: 'Criminal Law',
+    court: 'District Court',
+    experience: 6,
+    rating: 4.4,
+    casesHandled: 120,
+    casesWon: 95,
+    fees: 3000,
+    image: 'https://ui-avatars.com/api/?name=Anjali+Desai&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '11',
+    name: 'Adv. Suresh Nair',
+    city: 'Hyderabad',
+    category: 'Corporate Law',
+    court: 'High Court',
+    experience: 13,
+    rating: 4.8,
+    casesHandled: 260,
+    casesWon: 230,
+    fees: 6500,
+    image: 'https://ui-avatars.com/api/?name=Suresh+Nair&background=2563EB&color=fff&size=200'
+  },
+  {
+    id: '12',
+    name: 'Adv. Pooja Kapoor',
+    city: 'Hyderabad',
+    category: 'Divorce Law',
+    court: 'District Court',
+    experience: 8,
+    rating: 4.7,
+    casesHandled: 150,
+    casesWon: 130,
+    fees: 4000,
+    image: 'https://ui-avatars.com/api/?name=Pooja+Kapoor&background=2563EB&color=fff&size=200'
+  }
+];
+
+const AdvocatesPage = () => {
+  const navigate = useNavigate();
+  const { selectedCity } = useLocation();
+  const [advocates, setAdvocates] = useState([]);
+  const [filteredAdvocates, setFilteredAdvocates] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState({
+    category: '',
+    court: '',
+    minRating: 0,
+    sortBy: ''
+  });
+
+  useEffect(() => {
+    // Redirect to location page if no city selected
+    if (!selectedCity) {
+      navigate('/location');
+      return;
+    }
+
+    // Simulate loading
+    setLoading(true);
+    setTimeout(() => {
+      // Filter advocates by selected city
+      const cityAdvocates = DUMMY_ADVOCATES.filter(adv => adv.city === selectedCity);
+      setAdvocates(cityAdvocates);
+      setFilteredAdvocates(cityAdvocates);
+      setLoading(false);
+    }, 800);
+  }, [selectedCity, navigate]);
+
+  useEffect(() => {
+    // Apply filters and search
+    let filtered = [...advocates];
+
+    // Search filter
+    if (searchTerm) {
+      filtered = filtered.filter(adv => 
+        adv.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        adv.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Category filter
+    if (filters.category) {
+      filtered = filtered.filter(adv => adv.category === filters.category);
+    }
+
+    // Court filter
+    if (filters.court) {
+      filtered = filtered.filter(adv => adv.court === filters.court);
+    }
+
+    // Rating filter
+    if (filters.minRating > 0) {
+      filtered = filtered.filter(adv => adv.rating >= filters.minRating);
+    }
+
+    // Sorting
+    if (filters.sortBy) {
+      switch (filters.sortBy) {
+        case 'rating-high':
+          filtered.sort((a, b) => b.rating - a.rating);
+          break;
+        case 'rating-low':
+          filtered.sort((a, b) => a.rating - b.rating);
+          break;
+        case 'experience-high':
+          filtered.sort((a, b) => b.experience - a.experience);
+          break;
+        case 'experience-low':
+          filtered.sort((a, b) => a.experience - b.experience);
+          break;
+        case 'fees-low':
+          filtered.sort((a, b) => a.fees - b.fees);
+          break;
+        case 'fees-high':
+          filtered.sort((a, b) => b.fees - a.fees);
+          break;
+        default:
+          break;
+      }
+    }
+
+    setFilteredAdvocates(filtered);
+  }, [filters, advocates, searchTerm]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    if (filterType === 'reset') {
+      setFilters({
+        category: '',
+        court: '',
+        minRating: 0,
+        sortBy: ''
+      });
+      setSearchTerm('');
+    } else {
+      setFilters(prev => ({
+        ...prev,
+        [filterType]: value
+      }));
+    }
+  };
+
+  const handleBookNow = (advocateId) => {
+    navigate(`/advocate/${advocateId}`);
+  };
+
+  if (!selectedCity) {
+    return null;
+  }
+
+  return (
+    <div className="advocates-page">
+      <div className="advocates-header">
+        <div className="header-content">
+          <div className="location-badge">
+            <MapPin size={20} />
+            <span>{selectedCity}</span>
+          </div>
+          <h1>Advocates Near You</h1>
+          <p>Found {filteredAdvocates.length} verified advocates in {selectedCity}</p>
+        </div>
+      </div>
+
+      <div className="advocates-container">
+        <div className="advocates-main">
+          <AdvocateSearch 
+            onSearch={handleSearch}
+            onFilterChange={handleFilterChange}
+            filters={filters}
+          />
+
+          {loading ? (
+            <LoadingSkeleton type="card" count={6} />
+          ) : filteredAdvocates.length === 0 ? (
+            <EmptyState 
+              type="no-advocates"
+              title="No advocates found"
+              message={searchTerm || filters.category || filters.court ? 
+                "Try adjusting your search or filters" : 
+                `No advocates available in ${selectedCity}`}
+              actionText="Clear Filters"
+              onAction={() => handleFilterChange('reset', null)}
+            />
+          ) : (
+            <div className="advocates-grid">
+              {filteredAdvocates.map(advocate => (
+                <div key={advocate.id} className="advocate-card">
+                  <div className="advocate-image">
+                    <img src={advocate.image} alt={advocate.name} />
+                    <div className="verified-badge">✓ Verified</div>
+                  </div>
+
+                  <div className="advocate-info">
+                    <h3>{advocate.name}</h3>
+                    
+                    <div className="advocate-meta">
+                      <span className="category-badge">{advocate.category}</span>
+                      <span className="court-badge">{advocate.court}</span>
+                    </div>
+
+                    <div className="advocate-stats">
+                      <div className="stat">
+                        <Briefcase size={16} />
+                        <span>{advocate.experience} years</span>
+                      </div>
+                      <div className="stat">
+                        <Star size={16} />
+                        <span>{advocate.rating} rating</span>
+                      </div>
+                    </div>
+
+                    <div className="advocate-cases">
+                      <Award size={16} />
+                      <span>{advocate.casesWon}/{advocate.casesHandled} cases won</span>
+                    </div>
+
+                    <div className="advocate-footer">
+                      <div className="fees">
+                        <IndianRupee size={18} />
+                        <span>{advocate.fees.toLocaleString()}</span>
+                        <small>/consultation</small>
+                      </div>
+                      <button 
+                        className="btn-book"
+                        onClick={() => handleBookNow(advocate.id)}
+                      >
+                        View Profile
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdvocatesPage;
