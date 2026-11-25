@@ -12,12 +12,31 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Detect missing configuration so we can degrade gracefully
+// instead of crashing the entire app on a blank page.
+export const isFirebaseConfigured = Boolean(
+  firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId
+);
 
-// Initialize services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+let app = null;
+let auth = null;
+let db = null;
+let storage = null;
 
+if (isFirebaseConfigured) {
+  // Initialize Firebase
+  app = initializeApp(firebaseConfig);
+
+  // Initialize services
+  auth = getAuth(app);
+  db = getFirestore(app);
+  storage = getStorage(app);
+} else {
+  console.warn(
+    '[LawyerBhai] Firebase is NOT configured. Set the VITE_FIREBASE_* environment variables ' +
+    'in your .env file (see .env.example). Login, booking and dashboard features will be disabled.'
+  );
+}
+
+export { auth, db, storage };
 export default app;

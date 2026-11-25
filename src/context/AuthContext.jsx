@@ -7,7 +7,7 @@ import {
   updateProfile
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../config/firebase';
+import { auth, db, isFirebaseConfigured } from '../config/firebase';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext();
@@ -94,6 +94,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      // Firebase not configured — skip auth listener, app still works without auth
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       if (user) {
